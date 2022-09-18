@@ -6,6 +6,7 @@ Team member name:-
             2)Aditya Bhardwaj
             3)Vaibhav Jha
             4)Parth Bansal
+ 
             
 Cryptocurrencies are a digital way of money in which all transactions are held electronically. 
 It is a virtual currency which doesn't exist in the form of hard notes physically. 
@@ -18,3 +19,14 @@ From many types of virtual currencies, bitcoin has a great acceptance by differe
 
 To the best of our knowledge, our target is to implement the efficient deep learning-based prediction models, 
 specifically long short-term memory (LSTM) to handle the price volatility of bitcoin and to obtain high accuracy.
+
+
+
+
+
+
+
+
+# refrence:-
+Data has been taken using API of https://twelvedata.com/
+
