@@ -1,0 +1,52 @@
+{% extends 'ans.html' %}
+
+{% block script %}
+bitPrice = {{bitPrice}}
+let labels = [];
+for (let i = 0; i < 10000; i += 25) {
+  labels.push(i);
+}
+predPrice = {{predPrice}}
+console.log(predPrice)
+const data = {
+  labels: labels,
+  datasets: [{
+    label: 'bitcoin',
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgb(255, 99, 132)',
+    data: bitPrice,
+    pointRadius: 0,
+  },
+  {
+    label: 'Predicted Price',
+    backgroundColor: 'rgb(2, 200, 132)',
+    borderColor: 'rgb(2, 200, 132)',
+    data: predPrice,
+    pointRadius: 0,
+  }]
+};
+
+const plugin = {
+  id: 'custom_canvas_background_color',
+  beforeDraw: (chart) => {
+    const {ctx} = chart;
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, chart.width, chart.height);
+    ctx.restore();
+  }
+};
+
+const config = {
+  type: 'line',
+  data: data,
+  plugins: [plugin],
+  options: {}
+};
+const myChart = new Chart(
+  document.getElementById('myChart'),
+  config
+);
+{% endblock script %}
+

@@ -1,0 +1,13 @@
+body{
+    margin: 0;
+    padding: 0;
+
+}
+#s_date{
+    width: 122px;
+    background-color: black;
+}
+#e_date{
+    width: 122px;
+    background-color: pink;
+}

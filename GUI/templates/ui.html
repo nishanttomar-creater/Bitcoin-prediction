@@ -1,0 +1,302 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="=" width=device-width, initial-scale="1.0">
+  <title>Bitcoin Price Prediction and Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <link rel="shortcut icon" href="{% static 'bitcoin.png' %}" type="image/x-icon">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body::before {
+      content: "";
+      background-image: url({% static 'background.png' %});
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+    }
+
+    body {
+      width: 100%;
+      height: 100%;
+      /* position: absolute; */
+    }
+
+    .container {
+      padding: 0 7%;
+      color: #fff;
+    }
+
+    nav {
+      width: 100%;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      width: 50px;
+      cursor: pointer;
+
+    }
+
+    nav ul {
+      flex: 1
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin: 10px 20px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    nav .btn {
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid #fff;
+      padding: 10px 30px;
+      border-radius: 20px;
+    }
+
+    .content {
+      margin: 10% 0%;
+    }
+
+    .content h1 {
+      font-size: 88px;
+      margin-bottom: 15px;
+    }
+
+    .content h1 span {
+      color: #ff960b;
+    }
+
+    .content p {
+      line-height: 22px;
+      font-size: 14px;
+    }
+
+    .content .btn {
+      display: inline-block;
+      margin-top: 30px;
+      background: #ff960b;
+      color: #fff;
+      text-decoration: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+    }
+
+    .coin-list {
+      position: absolute;
+      right: 10%;
+      bottom: 50px;
+      display: flex;
+      align-items: center;
+    }
+
+    .coin {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      margin: 150px 15px;
+      color: #ff960b;
+      border: 6px solid #fff;
+      padding: 20px 30px;
+      border-radius: 35px;
+    }
+
+    .coin img {
+      width: 40px;
+      margin-right: 10px;
+    }
+
+    .coin h3 {
+      color: white;
+      margin-bottom: 3px;
+      height: 10%;
+      
+      font-size:19px;
+    }
+
+    #predi {
+      margin: 20px;
+      /* border: 6px solid #fff; */
+      padding: 20px 30px;
+      /* border-radius: 35px; */
+      margin: 15px;
+    }
+
+    #form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      /* width: 350px; */
+    }
+
+    #form input {
+      height: 25px;
+      width: 150px;
+      /* border: 2px solid rgb(241, 117, 44); */
+      border-radius: 7px;
+      background-color: rgb(216, 216, 216);
+      margin: 15px;
+      /* color: orange; */
+    }
+
+    #form label {
+      color: orange;
+    }
+
+    .form-btn {
+      display: inline-block;
+      margin-top: 30px;
+      background: #ff960b;
+      color: #fff;
+      text-decoration: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+    }
+
+    #coin-sub {
+      display: flex;
+      margin-bottom: 56px;
+
+    }
+
+    .dial {
+      display: flex;
+      width: 100%;
+      margin: auto;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <nav>
+      <img src="{% static 'logo.png' %}" class="logo">
+      <ul>
+        <li><a href="#">Market</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">White Papers</a></li>
+        <li><a href="#lorem">About us</a></li>
+      </ul>
+      <a href="#" class="btn">EN</a>
+    </nav>
+    <div class="content">
+      <h1>PREDICT & <br>ANALYSE <span>crypto</span></h1>
+      <P>World's best Cryptocurrency prediction and analysis available on web.</P>
+      <a href="#predi" class="btn">PREDICT</a>
+    </div>
+    <!-- <div class="coin-list"></div> -->
+    <div class="coin">
+      <img src="{% static 'bitcoin.png' %}">
+      <div>
+        <h3>$ <span id="bitcoin"></span></h3>
+        <p>Present Bitcoin Price</p>
+      </div>
+    </div>
+
+  </div>
+  <div id="lorem">
+    <div class="container">
+      <!-- <div class="content"></div> -->
+      <!-- <div class="coin-list"></div> -->
+      <div class="coin" id="coin-sub">
+        <!-- <div>
+          <h3>$ <span id="bitcoin"></span></h3>
+        </div> -->
+        <div id="predi">
+          <form action="{%url 'home' %}" method="post" id="form">
+            {% csrf_token %}
+            <label for="s_date">Start Date</label>
+            <input type="date" name="s_date" id="s_date">
+            <label for="s_time">Start Time</label>
+            <input type="time" name="s_time" id="s_time">
+            <label for="e_date">End Date</label>
+            <input type="date" name="e_date" id="e_date">
+            <label for="e_time">End Time</label>
+            <input type="time" name="e_time" id="e_time">
+            <button type="submit" class="form-btn">Submit</button>
+          </form>
+        </div>
+        <div>
+          <h3>
+            Bitcoins are a form of decentralized cryptocurrency which are used to store value. One can store it,
+            exchange
+            it and make payments with it. 
+            In the current report, we are trying to show an interesting view of economics questions surrounding
+            prediction
+            of crypto assets, specifically bitcoin, and the nature of crypto currency following trends.<br><br>
+            Bitcoin price prediction has been an active area of research for a long time. Bitcoin, as a pioneer within
+            the
+            blockchain monetary renaissance, plays an overwhelming part in an entire cryptocurrency market
+            capitalization
+            environment.
+            <br>
+            <br>
+            Hence, it is the incredible interest of machine learning and data mining community to be able to:
+            <br>
+            (I) predict Bitcoin price changes
+            <br>
+            (II) grant experiences to get at what drives the Bitcoin instability
+            <br>
+            (III) provide a platform for the community to share their experiences and knowledge
+            <br>
+          </h3>
+        </div>
+
+
+      </div>
+      <div class="dial" id="dial-box">
+        <h3>Disclaimer</h3>
+        <label for="dial_box" name="">This project has been made by <b>College students</b>, <b><i>Don't Use For Investment Purposes</b></i> </label>
+
+      </div>
+
+    </div>
+    <script>
+      var btc = document.getElementById("bitcoin");
+
+      var settings = {
+        "async": true,
+        "scrossDomain": true,
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
+        "method": "GET",
+        "headers": {}
+      }
+      $.ajax(settings).done(function (response) {
+        btc.innerHTML = response.bitcoin.usd;
+      })
+    </script>
+
+</body>
+
+</html>
